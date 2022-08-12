@@ -1,0 +1,309 @@
+WindowManager:
+	MenuWindow:
+	Task1:
+	Task2:
+	Task3:
+
+<MenuWindow>:
+	name: "menu"
+
+	RelativeLayout:
+		orientation: "vertical"
+		size: root.width, root.height
+
+		MDLabel:
+			text: "Main Menu"
+			font_size : "80sp"
+			halign : "center"
+			pos_hint : {"center_x": .5, "center_y" : .8}
+			size_hint : (0.4, 0.2)
+
+		MDFillRoundFlatButton:
+			text : "Task 1"
+			font_size : "70sp"
+			pos_hint : {"center_x": .5, "center_y" : .6}
+			size_hint : (0.5, 0.15)
+			on_release:
+				app.root.current = "task1"
+				root.manager.transition.direction = "left"
+
+        MDFillRoundFlatButton:
+			text : "Task 2"
+			font_size : "70sp"
+			pos_hint : {"center_x": .5, "center_y" : .4}
+			size_hint : (0.5, 0.15)
+			on_release:
+				app.root.current = "task2"
+				root.manager.transition.direction = "left"
+
+        MDFillRoundFlatButton:
+			text : "Task 3"
+			font_size : "70sp"
+			pos_hint : {"center_x": .5, "center_y" : .2}
+			size_hint : (0.5, 0.15)
+			on_release:
+				app.root.current = "task3"
+				root.manager.transition.direction = "left"
+
+<Task1>:
+	name: "task1"
+	RelativeLayout:
+		orientation: "vertical"
+		size: root.width, root.height
+
+        Image:
+            source : 'task1.jpg'
+            allow_stretch : True
+            keep_ratio : True
+            size_hint : (1, 1)
+            pos_hint : {"x" : 0, "y" : 0.05}
+
+		MDRoundFlatIconButton:
+			text : "Go Back"
+			icon : "arrow-left-bold"
+			font_size: 32
+			pos_hint : {"x": 0, "y": 0}
+			on_release:
+				app.root.current = "menu"
+				root.manager.transition.direction = "right"
+
+<Task2>:
+	name: "task2"
+	RelativeLayout:
+		orientation: "vertical"
+		size: root.width, root.height
+
+		MDLabel:
+            halign: "center"
+			text: "Task 2"
+			font_style: "H2"
+
+        Image:
+            source : 'task2.jpg'
+            allow_stretch : True
+            keep_ratio : True
+            size_hint : (1, 1)
+            pos_hint : {"x" : 0, "y" : 0.1}
+
+		MDRoundFlatIconButton:
+			text : "Go Back"
+			icon : "arrow-left-bold"
+			font_size: 32
+			pos_hint : {"x": 0, "y": 0}
+			on_release:
+				app.root.current = "menu"
+				root.manager.transition.direction = "right"
+
+
+<Task3>:
+    name: "task3"
+    MDBottomNavigation:
+        MDBottomNavigationItem:
+            name: "lapse"
+            text: "Lapse Rate"
+            icon: "arrow-up-bold-circle"
+
+            RelativeLayout:
+                orientation: "vertical"
+                size: root.width, root.height
+
+                Image:
+                    id : graph_lapse
+                    source : 'task3_lapse_rate.jpg'
+                    allow_stretch : True
+                    keep_ratio : True
+                    size_hint : (.6, .6)
+                    pos_hint : {"x" : 0, "y" : 0.2}
+
+                MDLabel:
+                    id: U_slider_label_lapse
+                    halign : "center"
+                    pos_hint : {"center_x": .75, "center_y": .5}
+                    size_hint : (.4, .5)
+                    text: str(round(U_slider_lapse.value, 2))
+                    font_size: "40"
+                    color: app.theme_cls.accent_color
+
+                MDSlider:
+                    id: U_slider_lapse
+                    pos_hint : {"center_x": .75, "center_y": .45}
+                    size_hint : (.4, .4)
+                    min:0
+                    max:1
+                    color: app.theme_cls.accent_color
+
+                MDRoundFlatIconButton:
+                    id : return_lapse
+                    text : "Go Back"
+                    icon : "arrow-left-bold"
+                    pos_hint : {"x": 0, "y": 0}
+                    font_size : 50
+                    on_release:
+                        app.root.current = "menu"
+                        root.manager.transition.direction = "right"
+
+                MDFillRoundFlatIconButton
+                    id : generate_lapse
+                    text : "Generate"
+                    icon : "reload"
+                    pos_hint : {"center_x": .75, "y": .2}
+
+        MDBottomNavigationItem:
+            name: "temperature"
+            text: "Temperature"
+            icon: "thermometer"
+
+            RelativeLayout:
+                orientation: "vertical"
+                size: root.width, root.height
+
+                Image:
+                    id : graph_temperature
+                    source : 'task3_temperature.jpg'
+                    allow_stretch : True
+                    keep_ratio : True
+                    size_hint : (.6, .6)
+                    pos_hint : {"x" : 0, "y" : 0.2}
+
+                MDLabel:
+                    id: U_slider_label_temperature
+                    halign : "center"
+                    pos_hint : {"center_x": .75, "center_y": .5}
+                    size_hint : (.4, .5)
+                    text: str(round(U_slider_temperature.value, 2))
+                    font_size: "40"
+                    color: app.theme_cls.accent_color
+
+                MDSlider:
+                    id: U_slider_temperature
+                    pos_hint : {"center_x": .75, "center_y": .45}
+                    size_hint : (.4, .4)
+                    min:0
+                    max:1
+                    color: app.theme_cls.accent_color
+
+                MDRoundFlatIconButton:
+                    id : return_temperature
+                    text : "Go Back"
+                    icon : "arrow-left-bold"
+                    pos_hint : {"x": 0, "y": 0}
+                    font_size : 50
+                    on_release:
+                        app.root.current = "menu"
+                        root.manager.transition.direction = "right"
+
+                MDFillRoundFlatIconButton
+                    id : generate_temperature
+                    text : "Generate"
+                    icon : "reload"
+                    pos_hint : {"center_x": .75, "y": .2}
+
+        MDBottomNavigationItem:
+            name: "boiling"
+            text: "Boiling Point"
+            icon: "kettle-steam"
+
+            RelativeLayout:
+                orientation: "vertical"
+                size: root.width, root.height
+
+                Image:
+                    id : boiling_graph
+                    source : 'task3_boiling.jpg'
+                    allow_stretch : True
+                    keep_ratio : True
+                    size_hint : (.6, .6)
+                    pos_hint : {"x" : 0, "y" : 0.2}
+
+                MDLabel:
+                    id : U_label_boiling
+                    text : "U Value"
+                    halign : "center"
+                    pos_hint : {"center_x": .75, "center_y": .6}
+                    size_hint : (.3, .3)
+                    font_size : "50"
+
+                MDLabel:
+                    id: U_slider_label_boiling
+                    halign : "center"
+                    pos_hint : {"center_x": .75, "center_y": .5}
+                    size_hint : (.4, .5)
+                    text: str(round(U_slider_boiling.value, 2))
+                    color: app.theme_cls.accent_color
+                    font_size : "40"
+
+                MDSlider:
+                    id: U_slider_boiling
+                    pos_hint : {"center_x": .75, "center_y": .45}
+                    size_hint : (.4, .4)
+                    min:0
+                    max:1
+                    color: app.theme_cls.accent_color
+
+                MDRoundFlatIconButton:
+                    id : return_boiling
+                    text : "Go Back"
+                    icon : "arrow-left-bold"
+                    pos_hint : {"x": 0, "y": 0}
+                    on_release:
+                        app.root.current = "menu"
+                        root.manager.transition.direction = "right"
+
+                MDFillRoundFlatIconButton
+                    id : generate_boiling
+                    text : "Generate"
+                    icon : "reload"
+                    pos_hint : {"center_x": .75, "y": .2}
+                    on_press : root.new_boiling()
+
+        MDBottomNavigationItem:
+            name: "dew"
+            text: "Dew Point"
+            icon: "water"
+
+            RelativeLayout:
+                orientation: "vertical"
+                size: root.width, root.height
+
+                Image:
+                    id : graph_dew
+                    source : 'task3_dew.jpg'
+                    allow_stretch : True
+                    keep_ratio : True
+                    size_hint : (.6, .6)
+                    pos_hint : {"x" : 0, "y" : 0.2}
+
+                MDLabel:
+                    id: U_slider_label_dew
+                    halign : "center"
+                    pos_hint : {"center_x": .75, "center_y": .5}
+                    size_hint : (.4, .5)
+                    text: str(round(U_slider_dew.value, 2))
+                    font_size: "40"
+                    color: app.theme_cls.accent_color
+
+                MDSlider:
+                    id: U_slider_dew
+                    pos_hint : {"center_x": .75, "center_y": .45}
+                    size_hint : (.4, .4)
+                    min:0
+                    max:1
+                    color: app.theme_cls.accent_color
+
+                MDRoundFlatIconButton:
+                    id : return_dew
+                    text : "Go Back"
+                    icon : "arrow-left-bold"
+                    pos_hint : {"x": 0, "y": 0}
+                    font_size : 50
+                    on_release:
+                        app.root.current = "menu"
+                        root.manager.transition.direction = "right"
+
+                MDFillRoundFlatIconButton
+                    id : generate_dew
+                    text : "Generate"
+                    icon : "reload"
+                    pos_hint : {"center_x": .75, "y": .2}
+
+

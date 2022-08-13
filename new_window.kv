@@ -3,6 +3,7 @@ WindowManager:
 	Task1:
 	Task2:
 	Task3:
+	Calculator:
 
 <MenuWindow>:
 	name: "menu"
@@ -16,13 +17,13 @@ WindowManager:
 			font_size : "80sp"
 			halign : "center"
 			pos_hint : {"center_x": .5, "center_y" : .8}
-			size_hint : (0.4, 0.2)
+			size_hint : (0.6, 0.2)
 
 		MDFillRoundFlatButton:
 			text : "Task 1"
 			font_size : "70sp"
 			pos_hint : {"center_x": .5, "center_y" : .6}
-			size_hint : (0.5, 0.15)
+			size_hint : (0.3, 0.1)
 			on_release:
 				app.root.current = "task1"
 				root.manager.transition.direction = "left"
@@ -30,8 +31,8 @@ WindowManager:
         MDFillRoundFlatButton:
 			text : "Task 2"
 			font_size : "70sp"
-			pos_hint : {"center_x": .5, "center_y" : .4}
-			size_hint : (0.5, 0.15)
+			pos_hint : {"center_x": .5, "center_y" : .45}
+			size_hint : (0.3, 0.1)
 			on_release:
 				app.root.current = "task2"
 				root.manager.transition.direction = "left"
@@ -39,10 +40,19 @@ WindowManager:
         MDFillRoundFlatButton:
 			text : "Task 3"
 			font_size : "70sp"
-			pos_hint : {"center_x": .5, "center_y" : .2}
-			size_hint : (0.5, 0.15)
+			pos_hint : {"center_x": .5, "center_y" : .3}
+			size_hint : (0.3, 0.1)
 			on_release:
 				app.root.current = "task3"
+				root.manager.transition.direction = "left"
+
+	    MDFillRoundFlatButton:
+			text : "Calculator"
+			font_size : "70sp"
+			pos_hint : {"center_x": .5, "center_y" : .15}
+			size_hint : (0.5, 0.1)
+			on_release:
+				app.root.current = "calculator"
 				root.manager.transition.direction = "left"
 
 <Task1>:
@@ -58,7 +68,7 @@ WindowManager:
             size_hint : (1, 1)
             pos_hint : {"x" : 0, "y" : 0.05}
 
-		MDRoundFlatIconButton:
+		MDFillRoundFlatIconButton:
 			text : "Go Back"
 			icon : "arrow-left-bold"
 			font_size: 32
@@ -85,7 +95,7 @@ WindowManager:
             size_hint : (1, 1)
             pos_hint : {"x" : 0, "y" : 0.1}
 
-		MDRoundFlatIconButton:
+		MDFillRoundFlatIconButton:
 			text : "Go Back"
 			icon : "arrow-left-bold"
 			font_size: 32
@@ -112,32 +122,39 @@ WindowManager:
                     source : 'task3_lapse_rate.jpg'
                     allow_stretch : True
                     keep_ratio : True
-                    size_hint : (.6, .6)
-                    pos_hint : {"x" : 0, "y" : 0.2}
+                    size_hint : (.7, .7)
+                    pos_hint : {"center_x" : .5, "y" : 0.3}
+
+                MDLabel:
+                    id : U_label_lapse
+                    text : "U Value"
+                    halign : "center"
+                    pos_hint : {"center_x": .3, "center_y": .3}
+                    size_hint : (.3, .3)
+                    font_size : "40"
 
                 MDLabel:
                     id: U_slider_label_lapse
                     halign : "center"
-                    pos_hint : {"center_x": .75, "center_y": .5}
+                    pos_hint : {"center_x": .3, "center_y": .25}
                     size_hint : (.4, .5)
                     text: str(round(U_slider_lapse.value, 2))
-                    font_size: "40"
-                    color: app.theme_cls.accent_color
+                    font_size: "30"
 
                 MDSlider:
                     id: U_slider_lapse
-                    pos_hint : {"center_x": .75, "center_y": .45}
+                    pos_hint : {"center_x": .3, "center_y": .2}
                     size_hint : (.4, .4)
+                    hint : False
                     min:0
                     max:1
-                    color: app.theme_cls.accent_color
 
-                MDRoundFlatIconButton:
+                MDFillRoundFlatIconButton:
                     id : return_lapse
                     text : "Go Back"
                     icon : "arrow-left-bold"
                     pos_hint : {"x": 0, "y": 0}
-                    font_size : 50
+                    font_size : 30
                     on_release:
                         app.root.current = "menu"
                         root.manager.transition.direction = "right"
@@ -146,7 +163,68 @@ WindowManager:
                     id : generate_lapse
                     text : "Generate"
                     icon : "reload"
+                    font_size : 30
                     pos_hint : {"center_x": .75, "y": .2}
+                    on_press : root.new_lapse(U_slider_lapse.value)
+
+        MDBottomNavigationItem:
+            name: "pressure"
+            text: "Pressure"
+            icon: "arrow-down-drop-circle"
+
+            RelativeLayout:
+                orientation: "vertical"
+                size: root.width, root.height
+
+                Image:
+                    id : graph_pressure
+                    source : 'task3_pressure.jpg'
+                    allow_stretch : True
+                    keep_ratio : True
+                    size_hint : (.7, .7)
+                    pos_hint : {"center_x" : .5, "y" : 0.3}
+
+                MDLabel:
+                    id : U_label_pressure
+                    text : "U Value"
+                    halign : "center"
+                    pos_hint : {"center_x": .3, "center_y": .3}
+                    size_hint : (.3, .3)
+                    font_size : "40"
+
+                MDLabel:
+                    id: U_slider_label_pressure
+                    halign : "center"
+                    pos_hint : {"center_x": .3, "center_y": .25}
+                    size_hint : (.4, .5)
+                    text: str(round(U_slider_pressure.value, 2))
+                    font_size: "30"
+
+                MDSlider:
+                    id: U_slider_pressure
+                    pos_hint : {"center_x": .3, "center_y": .2}
+                    size_hint : (.4, .4)
+                    hint : False
+                    min:0
+                    max:1
+
+                MDFillRoundFlatIconButton:
+                    id : return_pressure
+                    text : "Go Back"
+                    icon : "arrow-left-bold"
+                    pos_hint : {"x": 0, "y": 0}
+                    font_size : 30
+                    on_release:
+                        app.root.current = "menu"
+                        root.manager.transition.direction = "right"
+
+                MDFillRoundFlatIconButton
+                    id : generate_pressure
+                    text : "Generate"
+                    icon : "reload"
+                    font_size : 30
+                    pos_hint : {"center_x": .75, "y": .2}
+                    on_press : root.new_pressure(U_slider_pressure.value)
 
         MDBottomNavigationItem:
             name: "temperature"
@@ -162,32 +240,39 @@ WindowManager:
                     source : 'task3_temperature.jpg'
                     allow_stretch : True
                     keep_ratio : True
-                    size_hint : (.6, .6)
-                    pos_hint : {"x" : 0, "y" : 0.2}
+                    size_hint : (.7, .7)
+                    pos_hint : {"center_x" : .5, "y" : 0.3}
+
+                MDLabel:
+                    id : U_label_temperature
+                    text : "U Value"
+                    halign : "center"
+                    pos_hint : {"center_x": .3, "center_y": .3}
+                    size_hint : (.3, .3)
+                    font_size : "40"
 
                 MDLabel:
                     id: U_slider_label_temperature
                     halign : "center"
-                    pos_hint : {"center_x": .75, "center_y": .5}
+                    pos_hint : {"center_x": .3, "center_y": .25}
                     size_hint : (.4, .5)
                     text: str(round(U_slider_temperature.value, 2))
-                    font_size: "40"
-                    color: app.theme_cls.accent_color
+                    font_size: "30"
 
                 MDSlider:
                     id: U_slider_temperature
-                    pos_hint : {"center_x": .75, "center_y": .45}
+                    pos_hint : {"center_x": .3, "center_y": .2}
                     size_hint : (.4, .4)
+                    hint : False
                     min:0
                     max:1
-                    color: app.theme_cls.accent_color
 
-                MDRoundFlatIconButton:
+                MDFillRoundFlatIconButton:
                     id : return_temperature
                     text : "Go Back"
                     icon : "arrow-left-bold"
                     pos_hint : {"x": 0, "y": 0}
-                    font_size : 50
+                    font_size : 30
                     on_release:
                         app.root.current = "menu"
                         root.manager.transition.direction = "right"
@@ -196,10 +281,12 @@ WindowManager:
                     id : generate_temperature
                     text : "Generate"
                     icon : "reload"
+                    font_size : 30
                     pos_hint : {"center_x": .75, "y": .2}
+                    on_press : root.new_temperature(U_slider_temperature.value)
 
         MDBottomNavigationItem:
-            name: "boiling"
+            name: "Boiling"
             text: "Boiling Point"
             icon: "kettle-steam"
 
@@ -208,43 +295,43 @@ WindowManager:
                 size: root.width, root.height
 
                 Image:
-                    id : boiling_graph
+                    id : graph_boiling
                     source : 'task3_boiling.jpg'
                     allow_stretch : True
                     keep_ratio : True
-                    size_hint : (.6, .6)
-                    pos_hint : {"x" : 0, "y" : 0.2}
+                    size_hint : (.7, .7)
+                    pos_hint : {"center_x" : .5, "y" : 0.3}
 
                 MDLabel:
                     id : U_label_boiling
                     text : "U Value"
                     halign : "center"
-                    pos_hint : {"center_x": .75, "center_y": .6}
+                    pos_hint : {"center_x": .3, "center_y": .3}
                     size_hint : (.3, .3)
-                    font_size : "50"
+                    font_size : "40"
 
                 MDLabel:
                     id: U_slider_label_boiling
                     halign : "center"
-                    pos_hint : {"center_x": .75, "center_y": .5}
+                    pos_hint : {"center_x": .3, "center_y": .25}
                     size_hint : (.4, .5)
                     text: str(round(U_slider_boiling.value, 2))
-                    color: app.theme_cls.accent_color
-                    font_size : "40"
+                    font_size: "30"
 
                 MDSlider:
                     id: U_slider_boiling
-                    pos_hint : {"center_x": .75, "center_y": .45}
+                    pos_hint : {"center_x": .3, "center_y": .2}
                     size_hint : (.4, .4)
+                    hint : False
                     min:0
                     max:1
-                    color: app.theme_cls.accent_color
 
-                MDRoundFlatIconButton:
+                MDFillRoundFlatIconButton:
                     id : return_boiling
                     text : "Go Back"
                     icon : "arrow-left-bold"
                     pos_hint : {"x": 0, "y": 0}
+                    font_size : 30
                     on_release:
                         app.root.current = "menu"
                         root.manager.transition.direction = "right"
@@ -253,8 +340,9 @@ WindowManager:
                     id : generate_boiling
                     text : "Generate"
                     icon : "reload"
+                    font_size : 30
                     pos_hint : {"center_x": .75, "y": .2}
-                    on_press : root.new_boiling()
+                    on_press : root.new_boiling(U_slider_boiling.value)
 
         MDBottomNavigationItem:
             name: "dew"
@@ -270,32 +358,39 @@ WindowManager:
                     source : 'task3_dew.jpg'
                     allow_stretch : True
                     keep_ratio : True
-                    size_hint : (.6, .6)
-                    pos_hint : {"x" : 0, "y" : 0.2}
+                    size_hint : (.7, .7)
+                    pos_hint : {"center_x" : .5, "y" : 0.3}
+
+                MDLabel:
+                    id : U_label_dew
+                    text : "U Value"
+                    halign : "center"
+                    pos_hint : {"center_x": .3, "center_y": .3}
+                    size_hint : (.3, .3)
+                    font_size : "40"
 
                 MDLabel:
                     id: U_slider_label_dew
                     halign : "center"
-                    pos_hint : {"center_x": .75, "center_y": .5}
+                    pos_hint : {"center_x": .3, "center_y": .25}
                     size_hint : (.4, .5)
                     text: str(round(U_slider_dew.value, 2))
-                    font_size: "40"
-                    color: app.theme_cls.accent_color
+                    font_size: "30"
 
                 MDSlider:
                     id: U_slider_dew
-                    pos_hint : {"center_x": .75, "center_y": .45}
+                    pos_hint : {"center_x": .3, "center_y": .2}
                     size_hint : (.4, .4)
+                    hint : False
                     min:0
                     max:1
-                    color: app.theme_cls.accent_color
 
-                MDRoundFlatIconButton:
+                MDFillRoundFlatIconButton:
                     id : return_dew
                     text : "Go Back"
                     icon : "arrow-left-bold"
                     pos_hint : {"x": 0, "y": 0}
-                    font_size : 50
+                    font_size : 30
                     on_release:
                         app.root.current = "menu"
                         root.manager.transition.direction = "right"
@@ -304,6 +399,125 @@ WindowManager:
                     id : generate_dew
                     text : "Generate"
                     icon : "reload"
+                    font_size : 30
                     pos_hint : {"center_x": .75, "y": .2}
+                    on_press : root.new_dew(U_slider_dew.value)
 
+<Calculator>:
+    name : "calculator"
+    RelativeLayout:
+        MDTextField:
+            id : altitude_input
+            pos_hint : {"x": 0, "center_y": .7}
+            hint_text: "Altitude /km"
+            helper_text: "Enter a number with two maximum decimal places"
+            helper_text_mode: "on_focus"
+            size_hint : (.3, None)
+            font_size : 40
+            on_text_validate : root.refresh_values()
 
+        MDTextField:
+            id : U_input
+            pos_hint : {"x": 0, "center_y": .3}
+            hint_text: "Humidity (U)"
+            helper_text: "Enter a number between 0 and 1 with two decimal digits"
+            helper_text_mode: "on_focus"
+            size_hint : (.3, None)
+            fill_color: 0, 0, 0, 0
+            font_size : 40
+            on_text_validate : root.refresh_values()
+
+        MDFillRoundFlatIconButton:
+            id : return_calculator
+            text : "Go Back"
+            icon : "arrow-left-bold"
+            pos_hint : {"x": 0, "y": 0}
+            font_size : 30
+            on_release:
+                app.root.current = "menu"
+                root.manager.transition.direction = "right"
+
+        MDLabel:
+            id: boiling_label
+            halign : "center"
+            color : "#e9c46a"
+            pos_hint : {"center_x": .5, "center_y": .9}
+            size_hint : (.4, None)
+            text: "Boiling"
+            font_size: "40"
+
+        MDLabel:
+            id: boiling_value
+            halign : "center"
+            pos_hint : {"center_x": .5, "center_y": .8}
+            size_hint : (.4, .1)
+            text: str(root.boiling_point)
+            font_size: "30"
+
+        MDLabel:
+            id: dew_label
+            halign : "center"
+            color : "#e9c46a"
+            pos_hint : {"center_x": .8, "center_y": .9}
+            size_hint : (.4, None)
+            text: "Dew Point"
+            font_size: "40"
+
+        MDLabel:
+            id: dew_value
+            halign : "center"
+            pos_hint : {"center_x": .8, "center_y": .8}
+            size_hint : (.4, .1)
+            text: str(root.dew_point)
+            font_size: "30"
+
+        MDLabel:
+            id: pressure_label
+            halign : "center"
+            color : "#e9c46a"
+            pos_hint : {"center_x": .5, "center_y": .6}
+            size_hint : (.4, None)
+            text: "Pressure"
+            font_size: "40"
+
+        MDLabel:
+            id: pressure_value
+            halign : "center"
+            pos_hint : {"center_x": .5, "center_y": .5}
+            size_hint : (.4, .1)
+            text: str(root.pressure)
+            font_size: "30"
+
+        MDLabel:
+            id: temperature_label
+            halign : "center"
+            color : "#e9c46a"
+            pos_hint : {"center_x": .8, "center_y": .6}
+            size_hint : (.4, None)
+            text: "Temperature"
+            font_size: "40"
+
+        MDLabel:
+            id: temperature_value
+            halign : "center"
+            pos_hint : {"center_x": .8, "center_y": .5}
+            size_hint : (.4, .1)
+            text: str(root.temperature)
+            font_size: "30"
+
+        MDLabel:
+            id: lapse_label
+            halign : "center"
+            color : "#e9c46a"
+            pos_hint : {"center_x": .65, "center_y": .3}
+            size_hint : (.4, None)
+            text: "Lapse Rate"
+            font_size: "40"
+
+        MDLabel:
+            id: lapse_value
+            halign : "center"
+            pos_hint : {"center_x": .65, "center_y": .2}
+            size_hint : (.4, .1)
+            text: str(root.lapse_rate)
+            font_size: "30"

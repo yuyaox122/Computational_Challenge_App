@@ -1,24 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-T0 = 15
-Tstar = 373
-P0 = Pstar = 1013.25
-dh = 10
-Md = 0.02896
-Mv = 0.01802
-R = 8.314
-g = 9.81
-dHv = 2501000
-cpd = 1003.5
-Rsd = 287
-Rsw = 461.5
-a = 17.625
-b = 243.04
-dH = 40800
-h_max = 11000
-colours = ['#264653', '#2a9d8f', '#e9c46a', '#f4a261', '#e76f51']
-
 def saturation_pressure(Tc):
     return 6.1121 * np.e ** ((18.678 - Tc / 234.5) * (Tc / (Tc + 257.14)))
 
@@ -65,52 +47,102 @@ def iterative_ISA(U):
         h += dh
         Tc -= L * dh
         P += dP
-
     return heights, pressures, lapse_rates, boiling_points, dew_points, temperatures
 
-def pressure_altitude(U):
+def pressure_altitude(U, current_colour):
     heights, pressures, lapse_rates, boiling_points, dew_points, temperatures = iterative_ISA(U)
-    pressure_height = plt.plot(heights, pressures)
+    pressure_height = plt.plot(heights, pressures, color = current_colour)
     plt.xlabel('Altitude / km')
     plt.ylabel('Pressure / mbar')
     plt.savefig("task3_pressure.jpg")
     plt.clf()
 
-def lapse_rate_altitude(U):
+def lapse_rate_altitude(U, current_colour):
     heights, pressures, lapse_rates, boiling_points, dew_points, temperatures = iterative_ISA(U)
-    lapse_rate_height = plt.plot(heights, lapse_rates)
+    lapse_rate_height = plt.plot(heights, lapse_rates, color = current_colour)
     plt.xlabel('Altitude / km')
     plt.ylabel('Lapse rate / ℃/km')
     plt.savefig("task3_lapse_rate.jpg")
     plt.clf()
 
-def temperature_altitude(U):
+def temperature_altitude(U, current_colour):
     heights, pressures, lapse_rates, boiling_points, dew_points, temperatures = iterative_ISA(U)
-    temperature_height = plt.plot(heights, temperatures)
+    temperature_height = plt.plot(heights, temperatures, color = current_colour)
     plt.xlabel('Altitude / km')
     plt.ylabel('Temperature / ℃')
     plt.savefig("task3_temperature.jpg")
     plt.clf()
 
-def boiling_altitude(U):
+def boiling_altitude(U, current_colour):
     heights, pressures, lapse_rates, boiling_points, dew_points, temperatures = iterative_ISA(U)
-    boiling_height = plt.plot(heights, boiling_points)
+    boiling_height = plt.plot(heights, boiling_points, color = current_colour)
     plt.xlabel('Altitude / km')
     plt.ylabel('Boiling point / ℃')
     plt.savefig("task3_boiling.jpg")
     plt.clf()
 
-def dew_altitude(U):
+def dew_altitude(U, current_colour):
     heights, pressures, lapse_rates, boiling_points, dew_points, temperatures = iterative_ISA(U)
-    dew_height = plt.plot(heights, dew_points)
+    dew_height = plt.plot(heights, dew_points, color = current_colour)
     plt.xlabel('Altitude / km')
     plt.ylabel('Dew point / ℃')
     plt.savefig("task3_dew.jpg")
     plt.clf()
 
-def plotter3():
-    pressure_altitude(0)
-    lapse_rate_altitude(0)
-    temperature_altitude(0)
-    boiling_altitude(0)
-    dew_altitude(0)
+
+# def new_iterative_ISA(U, layer, df_values):
+#     df_firsts = df_values.groupby(['layer']).first()
+#     df_lasts = df_values.groupby(['layer']).last()
+#     heights = pressures = lapse_rates = boiling_points = dew_points = temperatures = satpresses = np.array([])
+#     h = df_firsts.T[layer]['altitude'] * 1000
+#     h_max = df_lasts.T[layer]['altitude'] * 1000
+#     Tc = df_firsts.T[layer]['temperature'] - 273
+#     P = df_firsts.T[layer]['pressure'] / 100
+#
+#     while h <= h_max:
+#         # Calculations
+#         L = lapse_rate(U, Tc, P)
+#         Tboil = boiling_point(P)
+#         Tdew = dew_point(U, Tc)
+#         satpres = saturation_pressure(Tc)
+#
+#         dP = pressure_diff(U, Tc, P)
+#         # Appending
+#         heights = np.append(heights, h / 1000)
+#         pressures = np.append(pressures, P)
+#         lapse_rates = np.append(lapse_rates, L * 1000)
+#         boiling_points = np.append(boiling_points, Tboil - 273)
+#         dew_points = np.append(dew_points, Tdew)
+#         temperatures = np.append(temperatures, Tc)
+#         satpresses = np.append(satpresses, satpres)
+#         # Incrementing
+#         h += dh
+#         Tc -= L * dh
+#         P += dP
+#
+#     return heights, pressures, lapse_rates, boiling_points, dew_points, temperatures
+
+def plotter3(current_colour):
+    pressure_altitude(0, current_colour)
+    lapse_rate_altitude(0, current_colour)
+    temperature_altitude(0, current_colour)
+    boiling_altitude(0, current_colour)
+    dew_altitude(0, current_colour)
+
+T0 = 15
+Tstar = 373
+P0 = Pstar = 1013.25
+dh = 10
+Md = 0.02896
+Mv = 0.01802
+R = 8.314
+g = 9.81
+dHv = 2501000
+cpd = 1003.5
+Rsd = 287
+Rsw = 461.5
+a = 17.625
+b = 243.04
+dH = 40800
+h_max = 11000
+

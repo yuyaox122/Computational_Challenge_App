@@ -1,4 +1,4 @@
-A Standard Atmosphere
+A Standard Atmosphere Kivy App
 by Zachary Yen and Yuyao Xie
 
 BPho Computational Challenge 2022 Entry

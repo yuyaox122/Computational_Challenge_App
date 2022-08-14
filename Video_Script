@@ -1,0 +1,19 @@
+Video Script
+
+For the three tasks, we needed to do some preparation. We used the libraries math, numpy, and pandas for data structuring, and matplotlib and manim for plotting graphs. 
+Next, we began calculations by defining a temperature function which calculated values of the temperature from lapse rate and altitude, and created the arrays of numbers 
+that would be later used in each task. It was also important to note the bounds of each layer of the ISA, which became apparent later.
+
+For task 1, since we already had the values we needed from the temperature function in a dataframe, we simply created a graph to display the altitude against temperature.
+	
+For task 2, we needed to implement a function which could calculate the pressure from the altitude, temperature, and lapse rate. After running this on the existing 
+temperatures dataframe, it gave us a dataframe with all the necessary values — pressure, temperature, lapse rate, and altitude. Then, we created a graph using these 
+values.
+ 
+For task 3, after inputting all the relevant constants and formulae, we defined an iterative function to numerically approximate the differential equation, and it gave 
+us 5 different arrays for each value of humidity U representing the 5 outputs, and we could plot "heights" against each other parameter to get these graphs.
+
+As an extension, we decided to create a cross-platform app using the Kivy GUI framework. Our app allows users to view graphs for all 3 tasks and, using adjustable 
+sliders for humidity, the app displays custom matplotlib graphs in real time. We also implemented a calculator to calculate exact values given altitude and humidity. 
+Finally, Finally, we extended the pressure integral to other planets in the solar system, and even created a custom calculator that allows the user to generate data and
+graphs for any planet they choose.
